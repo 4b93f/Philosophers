@@ -6,7 +6,7 @@
 /*   By: shyrno <shyrno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 01:26:08 by shyrno            #+#    #+#             */
-/*   Updated: 2021/06/26 18:43:26 by shyrno           ###   ########.fr       */
+/*   Updated: 2021/06/26 18:52:18 by shyrno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ unsigned long ft_time(void)
 	time = ((ct.tv_sec * 1000) + (ct.tv_usec / 1000));
 	if (!tm)
 		tm = time;
+	printf("tm - time ====== %ld\n", tm - time)
 	return (tm - time);
 }
 
