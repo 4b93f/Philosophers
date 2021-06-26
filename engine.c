@@ -6,7 +6,7 @@
 /*   By: shyrno <shyrno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/15 13:27:28 by shyrno            #+#    #+#             */
-/*   Updated: 2021/06/26 18:14:24 by shyrno           ###   ########.fr       */
+/*   Updated: 2021/06/26 18:43:54 by shyrno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void eating(t_philo *philo)
 {
-    philo->past_time = ft_time() - philo->start_time;
+    philo->past_time = ft_time();
 	printf("%ld : Philo %d is eating\n", philo->past_time , philo->id);
 	usleep(philo->eat * 1000);
 }

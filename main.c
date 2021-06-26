@@ -6,7 +6,7 @@
 /*   By: shyrno <shyrno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 01:26:08 by shyrno            #+#    #+#             */
-/*   Updated: 2021/06/26 18:12:12 by shyrno           ###   ########.fr       */
+/*   Updated: 2021/06/26 18:43:26 by shyrno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,11 +52,14 @@ int	ft_atoi(const char *str)
 unsigned long ft_time(void)
 {
 	unsigned long time;
+	static unsigned long tm;
 	struct timeval ct;
-
+	
 	gettimeofday(&ct, NULL);
 	time = ((ct.tv_sec * 1000) + (ct.tv_usec / 1000));
-	return(time);
+	if (!tm)
+		tm = time;
+	return (tm - time);
 }
 
 static void *testage(void *tmp)
