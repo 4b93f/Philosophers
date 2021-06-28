@@ -6,7 +6,7 @@
 /*   By: shyrno <shyrno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 01:26:08 by shyrno            #+#    #+#             */
-/*   Updated: 2021/06/26 18:52:18 by shyrno           ###   ########.fr       */
+/*   Updated: 2021/06/28 03:06:18 by shyrno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,7 @@ unsigned long ft_time(void)
 	time = ((ct.tv_sec * 1000) + (ct.tv_usec / 1000));
 	if (!tm)
 		tm = time;
-	printf("tm - time ====== %ld\n", tm - time)
-	return (tm - time);
+	return (time - tm);
 }
 
 static void *testage(void *tmp)
@@ -115,11 +114,6 @@ static void *temp(void *tmp)
 	int scan;
 	t_philo *philo;
 
-
-	unsigned long A;
-	unsigned long B;
-	unsigned long C;
-
 	philo = tmp;
 	i = -1;
 	scan = philo->nbr;
@@ -157,7 +151,7 @@ int main(int argc, char **argv)
 		pthread_create(&test, NULL, testage, (void*)&philo[i]);
 	}
 	pthread_create(&michel, NULL, temp, (void*)philo);
-	pthread_join(test, NULL);
+	pthread_join(michel, NULL);
 	//pthread_exit();
 	return(0);
 }

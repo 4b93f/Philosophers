@@ -6,7 +6,7 @@
 /*   By: shyrno <shyrno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/15 13:27:28 by shyrno            #+#    #+#             */
-/*   Updated: 2021/06/26 18:43:54 by shyrno           ###   ########.fr       */
+/*   Updated: 2021/06/28 02:40:11 by shyrno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,27 +15,31 @@
 void eating(t_philo *philo)
 {
     philo->past_time = ft_time();
-	printf("%ld : Philo %d is eating\n", philo->past_time , philo->id);
+	printf("%ld ms : Philo %d is eating\n", philo->past_time , philo->id);
 	usleep(philo->eat * 1000);
 }
 
 void forking(t_philo *philo)
 {
-    printf("Philo %d has taken a fork\n", philo->id);
+    philo->past_time = ft_time();
+    printf("%ld ms : Philo %d has taken a fork\n", philo->past_time , philo->id);
 }
 
 void sleeping(t_philo *philo)
 {
-    printf("Philo %d is sleeping\n", philo->id);
+    philo->past_time = ft_time();
+    printf("%ld ms : Philo %d is sleeping\n", philo->past_time , philo->id);
 	usleep(philo->sleep * 1000);
 }
 
 void thinking(t_philo *philo)
 {
-    printf("Philo %d is thinking\n", philo->id);
+    philo->past_time = ft_time();
+    printf("%ld ms : Philo %d is thinking\n", philo->past_time , philo->id);
 }
 
 void dying(t_philo *philo)
 {
-    printf("Philo %d died\n", philo->id);
+    philo->past_time = ft_time();
+    printf("%ld ms : Philo %d died\n", philo->past_time , philo->id);
 }
