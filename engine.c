@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   engine.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shyrno <shyrno@student.42.fr>              +#+  +:+       +#+        */
+/*   By: chly-huc <chly-huc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/15 13:27:28 by shyrno            #+#    #+#             */
-/*   Updated: 2021/06/28 02:40:11 by shyrno           ###   ########.fr       */
+/*   Updated: 2021/06/29 22:34:13 by chly-huc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,32 +14,55 @@
 
 void eating(t_philo *philo)
 {
+	pthread_mutex_lock(philo->display);
+	printf("%ld ms : Philo %d is eating\n", ft_time(), philo->id);
+	pthread_mutex_unlock(philo->display);
+	philo->start_eat = ft_time();
     philo->past_time = ft_time();
-	printf("%ld ms : Philo %d is eating\n", philo->past_time , philo->id);
-	usleep(philo->eat * 1000);
+	while(1)
+	{
+		usleep(500);
+		if (ft_time() - philo->start_eat >= philo->eat)
+			break;
+	}
+	pthread_mutex_unlock(philo->fork1);
+	pthread_mutex_unlock(philo->fork2);
 }
 
 void forking(t_philo *philo)
 {
-    philo->past_time = ft_time();
-    printf("%ld ms : Philo %d has taken a fork\n", philo->past_time , philo->id);
+	pthread_mutex_lock(philo->fork1);
+	pthread_mutex_lock(philo->fork2);
+	pthread_mutex_lock(philo->display);
+    printf("%ld ms : Philo %d has taken a fork\n", ft_time() , philo->id);
+	printf("%ld ms : Philo %d has taken a fork\n", ft_time() , philo->id);
+	pthread_mutex_unlock(philo->display);
 }
 
 void sleeping(t_philo *philo)
 {
-    philo->past_time = ft_time();
-    printf("%ld ms : Philo %d is sleeping\n", philo->past_time , philo->id);
-	usleep(philo->sleep * 1000);
+	pthread_mutex_lock(philo->display);
+    printf("%ld ms : Philo %d is sleeping\n", ft_time(), philo->id);
+	pthread_mutex_unlock(philo->display);
+	philo->start_sleep = ft_time();
+	while(1)
+	{
+		usleep(500);
+		if (ft_time() - philo->start_sleep >= philo->sleep)
+			return;
+	}
 }
 
 void thinking(t_philo *philo)
 {
-    philo->past_time = ft_time();
-    printf("%ld ms : Philo %d is thinking\n", philo->past_time , philo->id);
+	pthread_mutex_lock(philo->display);
+    printf("%ld ms : Philo %d is thinking\n", ft_time() , philo->id);
+	pthread_mutex_unlock(philo->display);
 }
 
-void dying(t_philo *philo)
+void dying(t_philo *philo, int i)
 {
-    philo->past_time = ft_time();
-    printf("%ld ms : Philo %d died\n", philo->past_time , philo->id);
+	pthread_mutex_lock(philo->display);
+    printf("%ld ms : Philo %d died\n", ft_time() , i);
+	pthread_mutex_unlock(philo->display);
 }

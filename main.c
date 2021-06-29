@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shyrno <shyrno@student.42.fr>              +#+  +:+       +#+        */
+/*   By: chly-huc <chly-huc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 01:26:08 by shyrno            #+#    #+#             */
-/*   Updated: 2021/06/28 03:06:18 by shyrno           ###   ########.fr       */
+/*   Updated: 2021/06/29 22:33:30 by chly-huc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,21 +68,13 @@ static void *testage(void *tmp)
 	
 	philo = tmp;
 	philo->start_time = ft_time();
-	unsigned long start_time;
-	unsigned long current_time;
-	unsigned long time;
 	struct timeval ct;
 	while (1)
 	{
-		gettimeofday(&ct, NULL);
 		forking(philo);
-		// start_time = ((ct.tv_sec * 1000) + (ct.tv_usec / 1000));
 		eating(philo);
 		sleeping(philo);
 		thinking(philo);
-		
-		gettimeofday(&ct, NULL);
-		// current_time = ((ct.tv_sec * 1000) + (ct.tv_usec / 1000));		
 	}
 }
 
@@ -105,33 +97,70 @@ static void init(int argc, char **argv, t_philo *philo)
 		philo[i].status = 1;
 		philo[i].past_time = 0;
 		philo[i].start_time = 0;
+		philo[i].start_sleep = 0;
+		philo[i].start_eat = 0;
+		philo[i].meal_count = 0;
 	}
+	i = -1;
+	while (++i < ft_atoi(argv[1]))
+	{
+		philo[i].fork1 = malloc(sizeof(pthread_mutex_t));
+		philo[i].fork2 = malloc(sizeof(pthread_mutex_t));
+	}
+	i = -1;
+	while (++i < ft_atoi(argv[1]))
+	{
+		pthread_mutex_init(philo[i].fork1, NULL);
+		pthread_mutex_init(philo[i].fork2, NULL);
+		if (i == (ft_atoi(argv[1]) - 1))
+			philo[i].fork2 = philo[0].fork1;
+		else
+			philo[i].fork2 = philo[i + 1].fork1;
+	}
+	i = -1;
+	pthread_mutex_t *display;
+	
+	display = malloc(sizeof(pthread_t));
+	pthread_mutex_init(display, NULL);
+	while (++i < ft_atoi(argv[1]))
+		philo[i].display = display;
 }
 
 static void *temp(void *tmp)
 {
 	int i;
 	int scan;
+	unsigned long pt;
+	unsigned long tm;
 	t_philo *philo;
 
 	philo = tmp;
 	i = -1;
 	scan = philo->nbr;
-	while (++i < scan)
+	while (++i <= scan)
 	{
-		if (ft_time() - philo[i].past_time >= philo[i].die)
+		//printf("%lu\ndie =%lu\n", ft_time() - philo[i].past_time, philo[i].die);
+		if (ft_time() - philo[i].past_time != 0 && (ft_time() - philo[i].past_time) >= philo[i].die)
 		{
-			printf("past time == %ld , time to die == %ld\n", ft_time() - philo[i].past_time, philo[i].die);
-			philo[i].status = 0;
-		}
-		if (philo[i].status == 0)
-		{
-			printf("philo DEAD\n");
+			//printf("Ft_time = {%lu}, philo[i].past_time = {%lu}\n", ft_time(), philo[i].past_time);
+			//printf("Le temps passer entre les deux repas == {%lu}, max temps = {%lu} et l'id et {%d}\n", ft_time() - philo[i].past_time, philo[i].die, i);
+			dying(philo, i + 1);
 			exit(0);
 		}
+		//if (tm - philo[i].past_time >= philo[i].die)
+		//{
+		//	printf("tm == %ld , time to die == %ld, and id = %d\n", tm - philo[i].past_time, philo[i].die, i);
+		//	philo[i].status = 0;
+		//}
+		//if (philo[i].status == 0)
+		//{
+		//	printf("philo DEAD\n");
+		//	exit(0);
+		//}
 		if (i + 1 == scan)
 			i = -1;	
 	}
+	return (NULL);
 }
 
 int main(int argc, char **argv)
@@ -141,17 +170,16 @@ int main(int argc, char **argv)
     pthread_t test;
 	pthread_t michel;
     t_philo *philo;
-	t_philo *philo_info;
 
 	i = -1;
 	philo = malloc(sizeof(t_philo) * (ft_atoi(argv[1])));
     init(argc, argv, philo);
+	ft_time();
 	while(++i < philo->nbr)
 	{
 		pthread_create(&test, NULL, testage, (void*)&philo[i]);
 	}
 	pthread_create(&michel, NULL, temp, (void*)philo);
 	pthread_join(michel, NULL);
-	//pthread_exit();
 	return(0);
 }
