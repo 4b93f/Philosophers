@@ -1,6 +1,7 @@
 {
 	"files.associations": {
 		"__locale": "c",
-		"philosophers.h": "c"
+		"philosophers.h": "c",
+		"utils.C": "cpp"
 	}
 }
