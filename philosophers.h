@@ -6,7 +6,7 @@
 /*   By: chly-huc <chly-huc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 01:08:29 by shyrno            #+#    #+#             */
-/*   Updated: 2021/06/29 22:31:04 by chly-huc         ###   ########.fr       */
+/*   Updated: 2021/06/30 16:53:55 by chly-huc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,6 @@ typedef struct s_philo
     unsigned long start_time;
 	unsigned long start_sleep;
 	unsigned long start_eat;
-	//int *fork1;
-	//int *fork2;
 	pthread_mutex_t *fork1;
 	pthread_mutex_t *fork2;
 	pthread_mutex_t *display;
@@ -46,7 +44,7 @@ void forking(t_philo *philo);
 void thinking(t_philo *philo);
 void dying(t_philo *philo, int i);
 unsigned long ft_time(void);
-int checkfork(int nbr, int status);
+void ft_exit(t_philo *philo);
 
 
 #endif

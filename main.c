@@ -6,7 +6,7 @@
 /*   By: chly-huc <chly-huc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 01:26:08 by shyrno            #+#    #+#             */
-/*   Updated: 2021/06/29 22:33:30 by chly-huc         ###   ########.fr       */
+/*   Updated: 2021/06/30 17:14:32 by chly-huc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,15 +103,11 @@ static void init(int argc, char **argv, t_philo *philo)
 	}
 	i = -1;
 	while (++i < ft_atoi(argv[1]))
-	{
 		philo[i].fork1 = malloc(sizeof(pthread_mutex_t));
-		philo[i].fork2 = malloc(sizeof(pthread_mutex_t));
-	}
 	i = -1;
 	while (++i < ft_atoi(argv[1]))
 	{
 		pthread_mutex_init(philo[i].fork1, NULL);
-		pthread_mutex_init(philo[i].fork2, NULL);
 		if (i == (ft_atoi(argv[1]) - 1))
 			philo[i].fork2 = philo[0].fork1;
 		else
@@ -120,7 +116,7 @@ static void init(int argc, char **argv, t_philo *philo)
 	i = -1;
 	pthread_mutex_t *display;
 	
-	display = malloc(sizeof(pthread_t));
+	display = malloc(sizeof(pthread_mutex_t));
 	pthread_mutex_init(display, NULL);
 	while (++i < ft_atoi(argv[1]))
 		philo[i].display = display;
@@ -172,14 +168,15 @@ int main(int argc, char **argv)
     t_philo *philo;
 
 	i = -1;
+	if (argc < 5 || argc > 6)
+		return (0);
 	philo = malloc(sizeof(t_philo) * (ft_atoi(argv[1])));
     init(argc, argv, philo);
 	ft_time();
 	while(++i < philo->nbr)
-	{
 		pthread_create(&test, NULL, testage, (void*)&philo[i]);
-	}
 	pthread_create(&michel, NULL, temp, (void*)philo);
 	pthread_join(michel, NULL);
-	return(0);
+	ft_exit(philo);
+	return (0);
 }
