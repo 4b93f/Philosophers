@@ -6,7 +6,7 @@
 /*   By: chly-huc <chly-huc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 01:08:29 by shyrno            #+#    #+#             */
-/*   Updated: 2021/06/30 18:29:45 by chly-huc         ###   ########.fr       */
+/*   Updated: 2021/06/30 18:42:50 by chly-huc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void			ft_exit(t_philo *philo);
 void			thinking(t_philo *philo);
 void			sleeping(t_philo *philo);
 int				ft_atoi(const char *str);
+int				verif(int argc, char **argv);
 void			dying(t_philo *philo, int i);
 int				atoi_result(int sign, int res);
 void			ft_init_fork(t_philo *philo, char **argv);

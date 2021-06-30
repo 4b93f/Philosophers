@@ -6,7 +6,7 @@
 /*   By: chly-huc <chly-huc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 01:26:08 by shyrno            #+#    #+#             */
-/*   Updated: 2021/06/30 18:24:09 by chly-huc         ###   ########.fr       */
+/*   Updated: 2021/06/30 22:06:41 by chly-huc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ static void	init(int argc, char **argv, t_philo *philo)
 	ft_init_info(philo, argv);
 	ft_init_fork(philo, argv);
 	ft_init_mutex(philo, argv);
+	if (philo->max_eat == 0)
+		ft_exit(0);
 }
 
 static void	*philo_check(void *tmp)
@@ -71,13 +73,15 @@ int	main(int argc, char **argv)
 	pthread_t	philo_state_th;
 	t_philo		*philo;
 
-	i = -1;
-	if (argc < 5 || argc > 6)
+	if (!verif(argc, argv))
 		return (0);
+	i = -1;
+	
 	philo = malloc(sizeof(t_philo) * (ft_atoi(argv[1])));
 	if (!philo)
 		return (0);
 	init(argc, argv, philo);
+	
 	ft_time();
 	while (++i < philo->nbr)
 		pthread_create(&philo_th, NULL, philo_engine, (void *)&philo[i]);
