@@ -6,7 +6,7 @@
 /*   By: chly-huc <chly-huc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 01:08:29 by shyrno            #+#    #+#             */
-/*   Updated: 2021/06/30 18:42:50 by chly-huc         ###   ########.fr       */
+/*   Updated: 2021/07/02 17:54:42 by chly-huc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ typedef struct s_philo
 	unsigned long	eat;
 	unsigned long	sleep;
 	pthread_mutex_t	*fork1;
+	int				is_eating;
 	pthread_mutex_t	*fork2;
 	int				max_eat;
 	pthread_mutex_t	*display;

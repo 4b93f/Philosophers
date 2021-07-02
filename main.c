@@ -6,7 +6,7 @@
 /*   By: chly-huc <chly-huc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 01:26:08 by shyrno            #+#    #+#             */
-/*   Updated: 2021/06/30 22:06:41 by chly-huc         ###   ########.fr       */
+/*   Updated: 2021/07/02 18:03:03 by chly-huc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ static void	*philo_check(void *tmp)
 {
 	int		i;
 	int		j;
+	int		tm;
 	t_philo	*philo;
 
 	philo = tmp;
@@ -47,12 +48,9 @@ static void	*philo_check(void *tmp)
 	while (i <= philo[i].nbr)
 	{
 		j = 0;
-		if (ft_time() - philo[i].past_time != 0 && (ft_time()
-				- philo[i].past_time) >= philo[i].die)
-		{
+		tm = ft_time() - philo[i].past_time;
+		if (tm > 0 && tm >= philo[i].die && !philo->is_eating)
 			dying(philo, i + 1);
-			ft_exit(philo);
-		}
 		while (j <= philo[i].nbr && philo->max_eat > -1 && philo[i].meal_count
 			>= philo[i].max_eat)
 			j++;
@@ -76,12 +74,10 @@ int	main(int argc, char **argv)
 	if (!verif(argc, argv))
 		return (0);
 	i = -1;
-	
 	philo = malloc(sizeof(t_philo) * (ft_atoi(argv[1])));
 	if (!philo)
 		return (0);
 	init(argc, argv, philo);
-	
 	ft_time();
 	while (++i < philo->nbr)
 		pthread_create(&philo_th, NULL, philo_engine, (void *)&philo[i]);

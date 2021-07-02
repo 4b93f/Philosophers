@@ -6,7 +6,7 @@
 /*   By: chly-huc <chly-huc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/30 16:49:52 by chly-huc          #+#    #+#             */
-/*   Updated: 2021/06/30 22:11:11 by chly-huc         ###   ########.fr       */
+/*   Updated: 2021/07/02 18:06:16 by chly-huc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,14 @@
 void	ft_exit(t_philo *philo)
 {
 	int	i;
+	int	scan;
 
 	i = 0;
+	scan = philo[i].nbr;
 	if (philo)
 	{
-		while (i < philo[i].nbr)
+		free(philo[i].display);
+		while (i < scan)
 		{
 			if (philo[i].fork1)
 			{
@@ -27,10 +30,7 @@ void	ft_exit(t_philo *philo)
 				pthread_mutex_destroy(philo[i].fork1);
 			}
 			if (philo[i].display)
-			{
 				pthread_mutex_destroy(philo[i].display);
-				free(philo[i].display);
-			}
 			i++;
 		}
 	}
