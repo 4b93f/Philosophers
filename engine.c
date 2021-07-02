@@ -6,7 +6,7 @@
 /*   By: chly-huc <chly-huc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/15 13:27:28 by shyrno            #+#    #+#             */
-/*   Updated: 2021/07/02 19:24:00 by chly-huc         ###   ########.fr       */
+/*   Updated: 2021/07/02 21:16:12 by chly-huc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,24 +41,25 @@ void			ft_putnbr_fd(int n, int fd)
 void	eating(t_philo *philo)
 {
 	pthread_mutex_lock(philo->display);
-	philo->is_eating = 1;
-	//ft_putnbr_fd(ft_time(), 0);
-	//write(1, " : Philo ", 9);
-	//ft_putnbr_fd(philo->id, 0);
-	//write(1, " is eating\n", 11);
+	ft_putnbr_fd(ft_time(), 0);
+	write(1, " : Philo ", 9);
+	ft_putnbr_fd(philo->id, 0);
+	write(1, " is eating\n", 11);
 	pthread_mutex_unlock(philo->display);
 	philo->start_eat = ft_time();
-	philo->past_time = ft_time();
 	while (1)
 	{
 		usleep(500);
-		if (ft_time() - philo->start_eat >= philo->eat)
-			break ;
+		if ((ft_time() - philo->start_eat) >= philo->eat)
+		{
+			philo->past_time = ft_time();
+			printf(" *** time = %lu *** Philo %d\n",philo->past_time, philo->id);
+			philo->meal_count++;
+			pthread_mutex_unlock(philo->fork1);
+			pthread_mutex_unlock(philo->fork2);
+			return ;
+		}
 	}
-	philo->meal_count++;
-	philo->is_eating = 0;
-	pthread_mutex_unlock(philo->fork1);
-	pthread_mutex_unlock(philo->fork2);
 }
 
 void	forking(t_philo *philo)
@@ -66,24 +67,24 @@ void	forking(t_philo *philo)
 	pthread_mutex_lock(philo->fork1);
 	pthread_mutex_lock(philo->fork2);
 	pthread_mutex_lock(philo->display);
-	//ft_putnbr_fd(ft_time(), 0);
-	//write(1, " : Philo ", 9);
-	//ft_putnbr_fd(philo->id, 0);
-	//write(1, " has taken a fork\n", 18);
-	//ft_putnbr_fd(ft_time(), 0);
-	//write(1, " : Philo ", 9);
-	//ft_putnbr_fd(philo->id, 0);
-	//write(1, " has taken a fork\n", 18);
+	ft_putnbr_fd(ft_time(), 0);
+	write(1, " : Philo ", 9);
+	ft_putnbr_fd(philo->id, 0);
+	write(1, " has taken a fork\n", 18);
+	ft_putnbr_fd(ft_time(), 0);
+	write(1, " : Philo ", 9);
+	ft_putnbr_fd(philo->id, 0);
+	write(1, " has taken a fork\n", 18);
 	pthread_mutex_unlock(philo->display);
 }
 
 void	sleeping(t_philo *philo)
 {
 	pthread_mutex_lock(philo->display);
-	//ft_putnbr_fd(ft_time(), 0);
-	//write(1, " : Philo ", 9);
-	//ft_putnbr_fd(philo->id, 0);
-	//write(1, " is sleeping\n", 13);
+	ft_putnbr_fd(ft_time(), 0);
+	write(1, " : Philo ", 9);
+	ft_putnbr_fd(philo->id, 0);
+	write(1, " is sleeping\n", 13);
 	pthread_mutex_unlock(philo->display);
 	philo->start_sleep = ft_time();
 	while (1)
@@ -97,19 +98,18 @@ void	sleeping(t_philo *philo)
 void	thinking(t_philo *philo)
 {
 	pthread_mutex_lock(philo->display);
-	//ft_putnbr_fd(ft_time(), 0);
-	//write(1, " : Philo ", 9);
-	//ft_putnbr_fd(philo->id, 0);
-	//write(1, " is thinking\n", 13);
+	ft_putnbr_fd(ft_time(), 0);
+	write(1, " : Philo ", 9);
+	ft_putnbr_fd(philo->id, 0);
+	write(1, " is thinking\n", 13);
 	pthread_mutex_unlock(philo->display);
 }
 
 void	dying(t_philo *philo, int i)
 {
-	pthread_mutex_lock(philo->display);
 	ft_putnbr_fd(ft_time(), 0);
 	write(1, " : Philo ", 9);
-	ft_putnbr_fd(philo->id, 0);
+	ft_putnbr_fd(i, 0);
 	write(1, " is died\n", 9);
 	ft_exit(philo);
 }

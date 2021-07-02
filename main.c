@@ -6,7 +6,7 @@
 /*   By: chly-huc <chly-huc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 01:26:08 by shyrno            #+#    #+#             */
-/*   Updated: 2021/07/02 18:03:03 by chly-huc         ###   ########.fr       */
+/*   Updated: 2021/07/02 21:16:16 by chly-huc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,23 +40,31 @@ static void	*philo_check(void *tmp)
 {
 	int		i;
 	int		j;
-	int		tm;
+	int scan;
+	int tm;
 	t_philo	*philo;
 
 	philo = tmp;
 	i = 0;
-	while (i <= philo[i].nbr)
+	scan = philo[i].nbr;
+	while (i < scan)
 	{
 		j = 0;
 		tm = ft_time() - philo[i].past_time;
-		if (tm > 0 && tm >= philo[i].die && !philo->is_eating)
+		if (tm > 0 && tm >= philo[i].die)
+		{
+			printf(" --- (%ld) --- #%lu# --- ~%d~ \n", ft_time(), philo[i].past_time, i);
+			pthread_mutex_lock(philo->display);
+			//printf("{%lu}\n", tm);
+			//printf("{%ld}\n", philo[i].die);
 			dying(philo, i + 1);
-		while (j <= philo[i].nbr && philo->max_eat > -1 && philo[i].meal_count
+		}
+		while (j <= scan && philo->max_eat > -1 && philo[i].meal_count
 			>= philo[i].max_eat)
 			j++;
-		if (j >= philo[i].nbr)
+		if (j >= scan)
 			ft_exit(philo);
-		if (i + 1 == philo[i].nbr)
+		if (i + 1 == scan)
 			i = -1;
 		i++;
 	}
