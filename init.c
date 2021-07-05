@@ -6,7 +6,7 @@
 /*   By: chly-huc <chly-huc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/30 18:00:25 by chly-huc          #+#    #+#             */
-/*   Updated: 2021/07/02 18:03:14 by chly-huc         ###   ########.fr       */
+/*   Updated: 2021/07/05 20:31:54 by chly-huc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	ft_init_info(t_philo *philo, char **argv)
 		else
 			philo[i].max_eat = -1;
 		philo[i].id = i + 1;
-		philo[i].past_time = 0;
+		philo[i].past_time = ft_time();
 		philo[i].start_sleep = 0;
 		philo[i].start_eat = 0;
 		philo[i].meal_count = 0;

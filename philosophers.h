@@ -6,7 +6,7 @@
 /*   By: chly-huc <chly-huc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 01:08:29 by shyrno            #+#    #+#             */
-/*   Updated: 2021/07/02 18:24:02 by chly-huc         ###   ########.fr       */
+/*   Updated: 2021/07/05 18:04:36 by chly-huc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,6 @@ int				atoi_result(int sign, int res);
 void			ft_init_fork(t_philo *philo, char **argv);
 void			ft_init_info(t_philo *philo, char **argv);
 void			ft_init_mutex(t_philo *philo, char **argv);
-int	str_isnum(char *str);
+int				str_isnum(char *str);
 
 #endif
