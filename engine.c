@@ -6,7 +6,7 @@
 /*   By: chly-huc <chly-huc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/15 13:27:28 by shyrno            #+#    #+#             */
-/*   Updated: 2021/07/02 21:16:12 by chly-huc         ###   ########.fr       */
+/*   Updated: 2021/07/05 16:35:44 by chly-huc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void			ft_putnbr_fd(int n, int fd)
 void	eating(t_philo *philo)
 {
 	pthread_mutex_lock(philo->display);
+	philo->is_eating = 1;
 	ft_putnbr_fd(ft_time(), 0);
 	write(1, " : Philo ", 9);
 	ft_putnbr_fd(philo->id, 0);
@@ -53,8 +54,9 @@ void	eating(t_philo *philo)
 		if ((ft_time() - philo->start_eat) >= philo->eat)
 		{
 			philo->past_time = ft_time();
-			printf(" *** time = %lu *** Philo %d\n",philo->past_time, philo->id);
+			//printf(" *** time = %lu *** Philo %d\n",philo->past_time, philo->id);
 			philo->meal_count++;
+			philo->is_eating = 0;
 			pthread_mutex_unlock(philo->fork1);
 			pthread_mutex_unlock(philo->fork2);
 			return ;
