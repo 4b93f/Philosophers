@@ -6,7 +6,7 @@
 /*   By: chly-huc <chly-huc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/15 13:27:28 by shyrno            #+#    #+#             */
-/*   Updated: 2021/07/05 22:34:27 by chly-huc         ###   ########.fr       */
+/*   Updated: 2021/07/16 13:13:33 by chly-huc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	eating(t_philo *philo)
 {
 	pthread_mutex_lock(philo->display);
 	philo->is_eating = 1;
-	printf("%ld ms : Philo %d is eating\n", ft_time(), philo->id);
+	printf("%ld : Philo %d is eating\n", ft_time(), philo->id);
 	//(ft_time(), 0);
 	//write(1, " : Philo ", 9);
 	//(philo->id, 0);
@@ -69,8 +69,8 @@ void	forking(t_philo *philo)
 	pthread_mutex_lock(philo->fork1);
 	pthread_mutex_lock(philo->fork2);
 	pthread_mutex_lock(philo->display);
-	printf("%ld ms : Philo %d has taken a fork\n", ft_time(), philo->id);
-	printf("%ld ms : Philo %d has taken a fork\n", ft_time(), philo->id);
+	printf("%ld : Philo %d has taken a fork\n", ft_time(), philo->id);
+	printf("%ld : Philo %d has taken a fork\n", ft_time(), philo->id);
 	//(ft_time(), 0);
 	//write(1, " : Philo ", 9);
 	//(philo->id, 0);
@@ -86,7 +86,7 @@ void	sleeping(t_philo *philo)
 {
 	philo->is_eating = 0;
 	pthread_mutex_lock(philo->display);
-	printf("%ld ms : Philo %d is sleeping\n", ft_time(), philo->id);
+	printf("%ld : Philo %d is sleeping\n", ft_time(), philo->id);
 	//(ft_time(), 0);
 	//write(1, " : Philo ", 9);
 	//(philo->id, 0);
@@ -104,7 +104,7 @@ void	sleeping(t_philo *philo)
 void	thinking(t_philo *philo)
 {
 	pthread_mutex_lock(philo->display);
-	printf("%ld ms : Philo %d is thinking\n", ft_time(), philo->id);
+	printf("%ld : Philo %d is thinking\n", ft_time(), philo->id);
 	//(ft_time(), 0);
 	//write(1, " : Philo ", 9);
 	//(philo->id, 0);
@@ -114,7 +114,7 @@ void	thinking(t_philo *philo)
 
 void	dying(t_philo *philo, int i)
 {
-	printf("%ld ms : Philo %d is dying\n", ft_time(), i);
+	printf("%ld : Philo %d is dying\n", ft_time(), i);
 	//(ft_time(), 0);
 	//write(1, " : Philo ", 9);
 	//(i, 0);

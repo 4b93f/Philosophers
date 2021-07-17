@@ -6,7 +6,7 @@
 /*   By: chly-huc <chly-huc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 01:26:08 by shyrno            #+#    #+#             */
-/*   Updated: 2021/07/05 22:31:17 by chly-huc         ###   ########.fr       */
+/*   Updated: 2021/07/16 13:17:05 by chly-huc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ static void	*philo_check(void *tmp)
 	while (i < scan)
 	{
 		j = 0;
-		//printf("tm = %d et i =%d\n", tm, i);
 		tm = ft_time() - philo[i].past_time;
 		if (tm > 0 && tm >= philo[i].die && philo[i].is_eating == 0)
 		{
