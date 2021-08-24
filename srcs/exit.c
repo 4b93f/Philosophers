@@ -6,11 +6,11 @@
 /*   By: chly-huc <chly-huc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/30 16:49:52 by chly-huc          #+#    #+#             */
-/*   Updated: 2021/07/02 18:23:40 by chly-huc         ###   ########.fr       */
+/*   Updated: 2021/08/22 18:22:53 by chly-huc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosophers.h"
+#include "../include/philosophers.h"
 
 void	ft_exit(t_philo *philo)
 {

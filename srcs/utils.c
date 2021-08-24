@@ -1,18 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_utils2.c                                        :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: chly-huc <chly-huc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/02 18:04:36 by chly-huc          #+#    #+#             */
-/*   Updated: 2021/07/02 18:09:39 by chly-huc         ###   ########.fr       */
+/*   Created: 2021/06/30 18:52:36 by chly-huc          #+#    #+#             */
+/*   Updated: 2021/08/24 18:51:37 by chly-huc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosophers.h"
+#include "../include/philosophers.h"
 
-long	result_atoli(int sign, long res)
+unsigned long	ft_time(void)
+{
+	unsigned long			time;
+	static unsigned long	tm;
+	struct timeval			ct;
+
+	gettimeofday(&ct, NULL);
+	time = ((ct.tv_sec * 1000) + (ct.tv_usec / 1000));
+	if (!tm)
+		tm = time;
+	return (time - tm);
+}
+
+int	str_isnum(char *str)
+{
+	int	i;
+
+	i = -1;
+	while (str[++i])
+	{
+		if (!(str[i] >= '0') && !(str[i] <= '9'))
+			return (0);
+	}
+	return (1);
+}
+
+int	atoi_result(int sign, int res)
 {
 	if (sign > 0)
 		return (res);
@@ -20,9 +46,9 @@ long	result_atoli(int sign, long res)
 		return (-res);
 }
 
-long	ft_atoli(const char *str)
+int	ft_atoi(const char *str)
 {
-	long		i;
+	int			i;
 	long long	res;
 	int			sign;
 
@@ -46,30 +72,5 @@ long	ft_atoli(const char *str)
 				return (0);
 		}
 	}
-	return (result_atoli(sign, res));
-}
-
-int	right_format(char *argv)
-{
-	int	i;
-
-	i = 0;
-	if ((ft_atoli(argv)) > INT32_MAX || (ft_atoli(argv) < 0))
-		return (0);
-	return (1);
-}
-
-int	verif(int argc, char **argv)
-{
-	int	i;
-
-	i = 0;
-	if (argc < 5 || argc > 6)
-		return (0);
-	while (++i < argc)
-	{
-		if ((str_isnum(argv[i]) == 0) || (right_format(argv[i]) == 0))
-			return (0);
-	}
-	return (1);
+	return (atoi_result(sign, res));
 }

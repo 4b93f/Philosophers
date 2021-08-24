@@ -6,7 +6,7 @@
 /*   By: chly-huc <chly-huc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 01:08:29 by shyrno            #+#    #+#             */
-/*   Updated: 2021/07/05 18:04:36 by chly-huc         ###   ########.fr       */
+/*   Updated: 2021/08/24 18:51:42 by chly-huc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ typedef struct s_philo
 	pthread_mutex_t	*fork2;
 	int				max_eat;
 	pthread_mutex_t	*display;
+	char			*output;
 	unsigned long	past_time;
 	unsigned long	start_eat;
 	int				meal_count;
@@ -50,5 +51,12 @@ void			ft_init_fork(t_philo *philo, char **argv);
 void			ft_init_info(t_philo *philo, char **argv);
 void			ft_init_mutex(t_philo *philo, char **argv);
 int				str_isnum(char *str);
+void print(t_philo *philo, char *s1);
+char	*ft_strjoinfree(const char *s1, const char *s2);
+char	*ft_itoa(int n);
+int	ft_strlen(const char *str);
+char	*ft_strdup(const char *s);
+void			ft_putnbr_fd(int n, int fd);
+
 
 #endif

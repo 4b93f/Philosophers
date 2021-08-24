@@ -1,8 +1,0 @@
-{
-	"files.associations": {
-		"__locale": "c",
-		"philosophers.h": "c",
-		"utils.C": "cpp",
-		"*.s": "cpp"
-	}
-}

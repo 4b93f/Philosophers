@@ -6,11 +6,11 @@
 /*   By: chly-huc <chly-huc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/30 18:00:25 by chly-huc          #+#    #+#             */
-/*   Updated: 2021/07/05 20:31:54 by chly-huc         ###   ########.fr       */
+/*   Updated: 2021/08/22 18:50:30 by chly-huc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosophers.h"
+#include "../include/philosophers.h"
 
 void	ft_init_info(t_philo *philo, char **argv)
 {
@@ -28,7 +28,7 @@ void	ft_init_info(t_philo *philo, char **argv)
 		else
 			philo[i].max_eat = -1;
 		philo[i].id = i + 1;
-		philo[i].past_time = ft_time();
+		philo[i].past_time = 0;
 		philo[i].start_sleep = 0;
 		philo[i].start_eat = 0;
 		philo[i].meal_count = 0;
@@ -71,3 +71,26 @@ void	ft_init_mutex(t_philo *philo, char **argv)
 	while (++i < ft_atoi(argv[1]))
 		philo[i].display = display;
 }
+
+//void	ft_init_start(t_philo *philo, char **argv)
+//{
+//	int				i;
+//	pthread_mutex_t	*start;
+
+//	i = -1;
+//	while (++i < ft_atoi(argv[1]))
+//	{
+//		pthread_mutex_init(philo[i].fork1, NULL);
+//		if (i == (ft_atoi(argv[1]) - 1))
+//			philo[i].fork2 = philo[0].fork1;
+//		else
+//			philo[i].fork2 = philo[i + 1].fork1;
+//	}
+//	i = -1;
+//	display = malloc(sizeof(pthread_mutex_t));
+//	if (!display)
+//		ft_exit(philo);
+//	pthread_mutex_init(display, NULL);
+//	while (++i < ft_atoi(argv[1]))
+//		philo[i].display = display;
+//}
