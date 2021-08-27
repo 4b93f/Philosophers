@@ -6,7 +6,7 @@
 /*   By: chly-huc <chly-huc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 01:26:08 by shyrno            #+#    #+#             */
-/*   Updated: 2021/08/24 19:11:53 by chly-huc         ###   ########.fr       */
+/*   Updated: 2021/08/27 17:23:55 by chly-huc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,21 +26,17 @@ void	ft_putstr(char *s)
 
 void print(t_philo *philo, char *s1)
 {
-	//char *id;
+	char *id;
 
-	//id = ft_itoa(philo->id);
-	//philo->output = ft_strjoinfree(ft_itoa(ft_time()), " : Philo ");
-	//philo->output = ft_strjoinfree(philo->output, id);
-	//philo->output = ft_strjoinfree(philo->output, s1);
-	//write(1, philo->output, ft_strlen(philo->output));
-	//free(philo->output);
-	//philo->output = NULL;
-	//free(id);
+	id = ft_itoa(philo->id);
+	philo->output = ft_strjoinfree(ft_itoa(ft_time()), " : Philo ");
+	philo->output = ft_strjoinfree(philo->output, id);
+	philo->output = ft_strjoinfree(philo->output, s1);
+	write(1, philo->output, ft_strlen(philo->output));
+	free(philo->output);
+	philo->output = NULL;
+	free(id);
 
-	ft_putnbr_fd(ft_time(), 1);
-	ft_putstr(" : Philo ");
-	ft_putnbr_fd(philo->id, 1);
-	ft_putstr(s1);
 }
 
 static void	*philo_engine(void *tmp)
@@ -49,10 +45,6 @@ static void	*philo_engine(void *tmp)
 	struct timeval	ct;
 
 	philo = tmp;
-	//while(start == 0)
-	//	;
-	//while(philo->id % 2 != 0)
-	//	;
 	while (1)
 	{
 		forking(philo);
@@ -86,7 +78,6 @@ static void	*philo_check(void *tmp)
 	{
 		j = 0;
 		tm = ft_time() - philo[i].past_time;
-		//printf("[%d]\n", tm);
 		if (tm > 0 && tm >= philo[i].die && philo[i].is_eating == 0)
 		{
 			pthread_mutex_lock(philo->display);
