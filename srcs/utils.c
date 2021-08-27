@@ -6,7 +6,7 @@
 /*   By: chly-huc <chly-huc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/30 18:52:36 by chly-huc          #+#    #+#             */
-/*   Updated: 2021/08/24 18:51:37 by chly-huc         ###   ########.fr       */
+/*   Updated: 2021/08/27 18:14:25 by chly-huc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,39 +38,53 @@ int	str_isnum(char *str)
 	return (1);
 }
 
-int	atoi_result(int sign, int res)
+void	print(t_philo *philo, char *s1)
 {
-	if (sign > 0)
-		return (res);
-	else
-		return (-res);
+	char	*id;
+
+	id = ft_itoa(philo->id);
+	philo->output = ft_strjoinfree(ft_itoa(ft_time()), " ");
+	philo->output = ft_strjoinfree(philo->output, id);
+	philo->output = ft_strjoinfree(philo->output, s1);
+	write(1, philo->output, ft_strlen(philo->output));
+	free(philo->output);
+	philo->output = NULL;
+	free(id);
 }
 
-int	ft_atoi(const char *str)
+static void	philo_dead(t_philo *philo, int tm, int i)
 {
-	int			i;
-	long long	res;
-	int			sign;
-
-	sign = 1;
-	res = 0;
-	i = 0;
-	while (str[i] == '\t' || str[i] == '\n' || str[i] == '\r'
-		|| str[i] == '\v' || str[i] == '\f' || str[i] == ' ')
-		i++;
-	if (str[i] == '+' || str[i] == '-')
-		if (str[i++] == '-')
-			sign = sign * (-1);
-	while (str[i] >= '0' && str[i] <= '9')
+	tm = ft_time() - philo[i].past_time;
+	if (tm > 0 && tm >= philo[i].die && philo[i].is_eating == 0)
 	{
-		res = res * 10 + (str[i++] - '0');
-		if (res < 0)
-		{
-			if (sign > 0)
-				return (-1);
-			else
-				return (0);
-		}
+		pthread_mutex_lock(philo->display);
+		dying(philo, i + 1);
 	}
-	return (atoi_result(sign, res));
+}
+
+void	*philo_check(void *tmp)
+{
+	int		i;
+	int		j;
+	int		scan;
+	int		tm;
+	t_philo	*philo;
+
+	philo = tmp;
+	i = 0;
+	scan = philo[i].nbr;
+	while (i < scan)
+	{
+		j = 0;
+		philo_dead(philo, tm, i);
+		while (j <= scan && philo->max_eat > -1 && philo[j].meal_count
+			>= philo[j].max_eat)
+			j++;
+		if (j >= scan)
+			ft_exit(philo);
+		if (i + 1 == scan)
+			i = -1;
+		i++;
+	}
+	return (NULL);
 }

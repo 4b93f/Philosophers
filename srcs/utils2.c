@@ -6,13 +6,13 @@
 /*   By: chly-huc <chly-huc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/02 18:04:36 by chly-huc          #+#    #+#             */
-/*   Updated: 2021/08/22 20:17:22 by chly-huc         ###   ########.fr       */
+/*   Updated: 2021/08/27 18:15:08 by chly-huc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philosophers.h"
 
-long	result_atoli(int sign, long res)
+static long	result_atoli(int sign, long res)
 {
 	if (sign > 0)
 		return (res);
@@ -49,7 +49,7 @@ long	ft_atoli(const char *str)
 	return (result_atoli(sign, res));
 }
 
-int	right_format(char *argv)
+static int	right_format(char *argv)
 {
 	int	i;
 
@@ -93,6 +93,6 @@ char	*ft_strjoinfree(const char *s1, const char *s2)
 	while (s2[++j])
 		tab[j + i] = s2[j];
 	tab[i + j] = '\0';
-	free((char*)s1);
+	free((char *)s1);
 	return (tab);
 }
