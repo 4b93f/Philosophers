@@ -6,7 +6,7 @@
 /*   By: chly-huc <chly-huc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 01:26:08 by shyrno            #+#    #+#             */
-/*   Updated: 2021/08/27 17:23:55 by chly-huc         ###   ########.fr       */
+/*   Updated: 2021/08/27 17:41:41 by chly-huc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void print(t_philo *philo, char *s1)
 	char *id;
 
 	id = ft_itoa(philo->id);
-	philo->output = ft_strjoinfree(ft_itoa(ft_time()), " : Philo ");
+	philo->output = ft_strjoinfree(ft_itoa(ft_time()), " ");
 	philo->output = ft_strjoinfree(philo->output, id);
 	philo->output = ft_strjoinfree(philo->output, s1);
 	write(1, philo->output, ft_strlen(philo->output));
@@ -83,8 +83,8 @@ static void	*philo_check(void *tmp)
 			pthread_mutex_lock(philo->display);
 			dying(philo, i + 1);
 		}
-		while (j <= scan && philo->max_eat > -1 && philo[i].meal_count
-			>= philo[i].max_eat)
+		while (j <= scan && philo->max_eat > -1 && philo[j].meal_count
+			>= philo[j].max_eat)
 			j++;
 		if (j >= scan)
 			ft_exit(philo);
